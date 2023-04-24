@@ -1,0 +1,120 @@
+create Database QuanLySinhVien
+use QuanLySinhVien
+create table sinhvien(
+    maSinhVien int Primary key identity,
+    tenSinhVien NVARCHAR(255) NOT NULL,
+    ngaySinh NVARCHAR(255) NOT NULL,
+    diaChi NVARCHAR(255) NOT NULL,
+    maLop NVARCHAR(255),
+    gioiTinh NVARCHAR(255),
+    FOREIGN KEY (maLop) REFERENCES lop(maLop)
+)
+
+create TABLE diemrenluyen(
+    maDiemRenLuyen int PRIMARY KEY identity,
+    maSinhVien int,
+    diemRenLuyen float,
+    hocKi int,
+    FOREIGN KEY (maSinhVien) REFERENCES sinhvien(maSinhVien)
+)
+
+create TABLE lop(
+    maLop NVARCHAR(255) PRIMARY KEY,
+    tenLop NVARCHAR(255) NOT NULL,
+    maGiaoVien int,
+    maKhoa NVARCHAR(255) NOT NULL,
+    FOREIGN KEY(maKhoa) REFERENCES khoa(maKhoa),
+    FOREIGN KEY(maGiaoVien) REFERENCES giaovien(maGiaoVien)
+)
+
+create table khoa(
+    maKhoa NVARCHAR(255) PRIMARY KEY,
+    tenKhoa NVARCHAR(255) NOT NULL
+)
+
+create table giaovien(
+    maGiaoVien int PRIMARY KEY identity,
+    tenGiaoVien NVARCHAR(255) NOT NULL,
+    ngaySinh NVARCHAR(255) NOT NULL,
+    diaChi NVARCHAR(255) NOT NULL,
+    tenDangNhap NVARCHAR(255) NOT NULL,
+    matKhau NVARCHAR(255) NOT NULL,
+    isAdmin bit,
+    gioiTinh NVARCHAR(255) NOT NULL
+)
+CREATE TABLE giaovien (
+    maGiaoVien INT PRIMARY KEY IDENTITY,
+    tenGiaoVien NVARCHAR(255) NOT NULL,
+    ngaySinh NVARCHAR(255) NOT NULL,
+    tenDangNhap NVARCHAR(255) NOT NULL,
+    matKhau NVARCHAR(255) NOT NULL,
+    isAdmin BIT,
+    gioiTinh NVARCHAR(255) NOT NULL
+);
+
+INSERT INTO giaovien (tenGiaoVien, ngaySinh, tenDangNhap, matKhau, isAdmin, gioiTinh)
+VALUES
+('Nguyen Van A', '1990-01-01', 'teacher1', 'password1', 0, 'Nam'),
+('Tran Thi B', '1985-02-03', 'teacher2', 'password2', 0, 'Nu'),
+('Le Van C', '1982-03-05', 'teacher3', 'password3', 0, 'Nam'),
+('Pham Thi D', '1981-04-07', 'teacher4', 'password4', 0, 'Nu'),
+('Vo Van E', '1987-05-09', 'teacher5', 'password5', 1, 'Nam'),
+('Nguyen Thi F', '1991-06-11', 'teacher6', 'password6', 0, 'Nu'),
+('Tran Van G', '1983-07-13', 'teacher7', 'password7', 0, 'Nam'),
+('Le Thi H', '1986-08-15', 'teacher8', 'password8', 0, 'Nu'),
+('Pham Van I', '1984-09-17', 'teacher9', 'password9', 0, 'Nam'),
+('Vo Thi K', '1980-10-19', 'teacher10', 'password10', 0, 'Nu');
+
+
+INSERT INTO khoa (maKhoa, tenKhoa)
+VALUES
+('CNTT', 'Khoa Công nghệ thông tin'),
+('KHXH', 'Khoa Khoa học xã hội và nhân văn'),
+('KTMT', 'Khoa Kỹ thuật máy tính'),
+('QTKD', 'Khoa Quản trị kinh doanh'),
+('KHDL', 'Khoa Khoa học địa lý'),
+('VL', 'Khoa Vật lý'),
+('SH', 'Khoa Sinh học'),
+('KTĐT', 'Khoa Khoa học và kỹ thuật điện tử'),
+('CNTT2', 'Khoa Công nghệ thông tin 2'),
+('MGM', 'Khoa Quản trị khách sạn và du lịch');
+
+INSERT INTO lop (maLop, tenLop, maGiaoVien, maKhoa)
+VALUES
+('D17CQCN01', 'Lớp D17CQCN01', 1, 'CNTT'),
+('D17CQCN02', 'Lớp D17CQCN02', 2, 'CNTT'),
+('D17CQPT01', 'Lớp D17CQPT01', 3, 'KTMT'),
+('D17CQPT02', 'Lớp D17CQPT02', 4, 'KTMT'),
+('D17TH1', 'Lớp D17TH1', 5, 'VL'),
+('D17TH2', 'Lớp D17TH2', 6, 'VL'),
+('D17VT1', 'Lớp D17VT1', 7, 'SH'),
+('D17VT2', 'Lớp D17VT2', 8, 'SH'),
+('D17KT1', 'Lớp D17KT1', 9, 'KTĐT'),
+('D17KT2', 'Lớp D17KT2', 10, 'KTĐT');
+
+INSERT INTO sinhvien (tenSinhVien, ngaySinh, diaChi, maLop, gioiTinh)
+VALUES
+(N'Nguyễn Văn A', '01/01/2000', 'Hà Nội', 'D17CQCN01', 'Nam')
+('Trần Thị B', '02/02/2000', 'Hải Phòng', 'D17CQCN01', 'Nữ'),
+('Lê Văn C', '03/03/2000', 'Bắc Ninh', 'D17CQCN02', 'Nam'),
+('Phạm Thị D', '04/04/2000', 'Ninh Bình', 'D17CQCN02', 'Nữ'),
+('Vũ Thị E', '05/05/2000', 'Hà Nam', 'D17CQPT01', 'Nữ'),
+('Đỗ Văn F', '06/06/2000', 'Thái Bình', 'D17CQPT01', 'Nam'),
+('Bùi Thị G', '07/07/2000', 'Nam Định', 'D17CQPT02', 'Nữ'),
+('Lý Văn H', '08/08/2000', 'Hà Nội', 'D17CQPT02', 'Nam'),
+('Hoàng Thị I', '09/09/2000', 'Hưng Yên', 'D17TH1', 'Nữ'),
+('Nguyễn Văn J', '10/10/2000', 'Hải Dương', 'D17TH1', 'Nam');
+
+INSERT INTO diemrenluyen (maSinhVien, diemRenLuyen, hocKi)
+VALUES
+(1, 3.5, 1),
+(2, 4.0, 1),
+(3, 2.5, 1),
+(4, 3.0, 1),
+(5, 4.0, 1),
+(6, 3.5, 1),
+(7, 2.0, 1),
+(8, 3.0, 1),
+(9, 4.0, 1),
+(10, 3.5, 1);
+
